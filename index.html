@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEBI Works | 咖啡全产业链整合平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #1DA1F2;
+            --accent-color: #FFAD1F;
+            --text-color: #0F1419;
+            --text-secondary: #5B7083;
+            --background-color: #FFFFFF;
+            --border-color: #EFF3F4;
+            --section-bg: #F7F9F9;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-part1 {
+            color: var(--primary-color);
+        }
+        
+        .logo-part2 {
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary-color);
+            background-color: rgba(29, 161, 242, 0.1);
+        }
+        
+        .nav-links a.active {
+            color: var(--secondary-color);
+            background-color: rgba(29, 161, 242, 0.1);
+        }
+        
+        .cta-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .cta-button:hover {
+            background-color: #333333;
+        }
+        
+        /* 主内容区域 - 单页选项卡式 */
+        .main-content {
+            min-height: calc(100vh - 200px);
+            padding: 40px 0;
+        }
+        
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            text-align: center;
+            padding: 60px 0;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+        
+        .highlight {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        
+        /* 流程展示部分 */
+        .section-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .process-step {
+            background-color: var(--section-bg);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s;
+        }
+        
+        .process-step:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .step-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        .step-content {
+            color: var(--text-secondary);
+        }
+        
+        /* 处理法展示 */
+        .processing-methods {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 900px) {
+            .processing-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .method-card {
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .method-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .method-content {
+            padding: 25px;
+        }
+        
+        .method-desc {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        
+        .method-feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        
+        .method-feature:before {
+            content: "✓";
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* 平台生态系统 */
+        .ecosystem {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .ecosystem-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            position: relative;
+            flex-wrap: wrap;
+        }
+        
+        .ecosystem-node {
+            background-color: var(--section-bg);
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0 10px 20px;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .ecosystem-node h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .ecosystem-node p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        
+        .ecosystem-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+        
+        .node-connector {
+            width: 100px;
+            height: 3px;
+            background-color: var(--border-color);
+            position: relative;
+        }
+        
+        .node-connector:after {
+            content: "→";
+            position: absolute;
+            right: -10px;
+            top: -12px;
+            color: var(--text-secondary);
+        }
+        
+        @media (max-width: 768px) {
+            .node-connector {
+                width: 50px;
+            }
+        }
+        
+        /* 生态系统新增图标区域 */
+        .ecosystem-connections {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .connection-item {
+            text-align: center;
+            max-width: 300px;
+            padding: 30px;
+            background-color: var(--section-bg);
+            border-radius: 16px;
+            transition: transform 0.3s;
+        }
+        
+        .connection-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .connection-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        /* 平台功能展示 */
+        .platform-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 900px) {
+            .platform-features {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .feature-card {
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        /* 设备租赁方案 */
+        .rental-plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        @media (max-width: 900px) {
+            .rental-plans {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .plan-card {
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .plan-header {
+            padding: 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .plan-name {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .plan-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .plan-price span {
+            font-size: 16px;
+            color: var(--text-secondary);
+            font-weight: normal;
+        }
+        
+        .plan-features {
+            padding: 30px;
+        }
+        
+        .feature-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .feature-item:before {
+            content: "•";
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* 联系信息 - 专业排版 */
+        .contact-section {
+            background-color: var(--section-bg);
+            border-radius: 16px;
+            padding: 40px;
+            margin-top: 60px;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .contact-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-icon {
+            font-size: 36px;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+        
+        .contact-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .contact-detail {
+            font-size: 18px;
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+        
+        .contact-note {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 60px 0 30px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .footer-column a {
+            color: #E7E9EA;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.2s;
+        }
+        
+        .footer-column a:hover {
+            color: var(--secondary-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #2F3336;
+            color: #71767B;
+            font-size: 14px;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .ecosystem-node {
+                width: 130px;
+                height: 130px;
+                margin: 0 5px 15px;
+            }
+            
+            .node-connector {
+                width: 30px;
+            }
+            
+            .ecosystem-connections {
+                gap: 20px;
+            }
+            
+            .connection-item {
+                max-width: 100%;
+            }
+        }
+        
+        /* 平台功能子页面样式 */
+        .subpage-content {
+            padding: 40px 0;
+        }
+        
+        .subpage-title {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--primary-color);
+        }
+        
+        .subpage-section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background-color: var(--section-bg);
+            border-radius: 16px;
+        }
+        
+        .subpage-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+        
+        .subpage-section p {
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+        }
+        
+        .back-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 30px;
+            transition: background-color 0.2s;
+        }
+        
+        .back-button:hover {
+            background-color: #333333;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .info-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo"><span class="logo-part1">JEBI</span><span class="logo-part2"> Works</span></a>
+                <div class="nav-links">
+                    <a href="#" class="nav-link active" data-section="home">首页</a>
+                    <a href="#" class="nav-link" data-section="processing">咖啡加工</a>
+                    <a href="#" class="nav-link" data-section="platform">平台功能</a>
+                    <a href="#" class="nav-link" data-section="rental">设备租赁</a>
+                    <a href="#" class="nav-link" data-section="ecosystem">生态系统</a>
+                </div>
+                <button class="cta-button" id="joinBtn">加入平台</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 主内容区域 - 单页选项卡式 -->
+    <div class="main-content">
+        <div class="container">
+            <!-- 首页 -->
+            <section id="home" class="content-section active">
+                <div class="hero">
+                    <h1>从<span class="highlight">咖啡樱桃</span>到<span class="highlight">完美烘焙</span>的完整生态系统</h1>
+                    <p>整合水培种植、标准化初加工、专业烘焙设备租赁与订单分发，打造咖啡产业创新平台。赋能烘焙师轻资产创业，为消费者提供来源透明、风味卓越的定制咖啡。</p>
+                    <button class="cta-button" id="learnMoreBtn">了解平台如何运作</button>
+                </div>
+                
+                <div style="margin-top: 60px;">
+                    <h2 class="section-title">平台核心优势</h2>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <h3 class="step-title">全产业链控制</h3>
+                            <p class="step-content">从水培种植到初加工，我们掌控咖啡品质的核心环节，确保每一批咖啡豆的卓越品质与风味一致性。</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <h3 class="step-title">轻资产创业</h3>
+                            <p class="step-content">为烘焙师提供专业设备与工作室租赁，大幅降低创业门槛，让您专注于烘焙艺术本身。</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <h3 class="step-title">智能订单分发</h3>
+                            <p class="step-content">通过平台智能系统，将客户订单精准匹配给合适的烘焙师，最大化资源利用效率与客户满意度。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 咖啡加工 -->
+            <section id="processing" class="content-section">
+                <div class="back-button" id="backFromProcessing">返回首页</div>
+                
+                <h2 class="section-title">咖啡初加工：从樱桃到生豆</h2>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">核心处理法</h3>
+                        <p class="step-content">通过日晒、水洗或蜜处理等工艺去除果皮果肉，这是决定咖啡风味基底的关键步骤。我们采用标准化流程确保每一批咖啡豆的品质一致。</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">干燥与稳定</h3>
+                        <p class="step-content">将咖啡豆含水量从60%降至10-12%，通过日晒或机械烘干均匀缓慢干燥，防止不良风味产生，确保豆子稳定储存。</p>
+                    </div>
+                    <div class="process-step">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">脱壳与分级</h3>
+                        <p class="step-content">去除羊皮层，根据大小、密度、颜色和瑕疵进行精密分级，确保咖啡生豆品质一致，为后续烘焙奠定基础。</p>
+                    </div>
+                </div>
+                
+                <h3 class="section-title" style="font-size: 24px; margin-top: 40px;">三大核心处理法</h3>
+                <div class="processing-methods">
+                    <div class="method-card">
+                        <div class="method-header" style="background-color: #E0245E;">日晒处理法</div>
+                        <div class="method-content">
+                            <p class="method-desc">整颗咖啡樱桃直接晾晒，在阳光下自然发酵，发展出丰富果香和甜感。</p>
+                            <div class="method-feature">更丰富的果香</div>
+                            <div class="method-feature">更高的甜感和醇厚度</div>
+                            <div class="method-feature">传统自然处理方法</div>
+                        </div>
+                    </div>
+                    <div class="method-card">
+                        <div class="method-header" style="background-color: #1DA1F2;">水洗处理法</div>
+                        <div class="method-content">
+                            <p class="method-desc">去除果皮果肉后发酵清洗，得到口感干净、酸质明亮的咖啡豆。</p>
+                            <div class="method-feature">口感干净清爽</div>
+                            <div class="method-feature">酸质明亮，风味清晰</div>
+                            <div class="method-feature">标准化程度高</div>
+                        </div>
+                    </div>
+                    <div class="method-card">
+                        <div class="method-header" style="background-color: #FFAD1F;">蜜处理法</div>
+                        <div class="method-content">
+                            <p class="method-desc">保留部分果胶进行晾晒，兼具水洗的干净度和日晒的甜感与醇厚度。</p>
+                            <div class="method-feature">平衡的风味特征</div>
+                            <div class="method-feature">甜感突出</div>
+                            <div class="method-feature">风味复杂度高</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 平台功能 -->
+            <section id="platform" class="content-section">
+                <div class="back-button" id="backFromPlatform">返回首页</div>
+                
+                <h2 class="section-title">平台核心功能</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; color: var(--text-secondary);">JEBI Works平台提供从原料供应到订单分发的完整解决方案，赋能咖啡产业创新者。</p>
+                
+                <div class="platform-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <h3 class="feature-title">供应链与订单中枢</h3>
+                        <p>展示自有基地产出的不同批次、处理法、风味的咖啡青豆，接收并智能分配烘焙订单，提供全程溯源追踪。</p>
+                        <div style="margin-top: 20px;">
+                            <div class="feature-item">生豆商城与库存管理</div>
+                            <div class="feature-item">智能订单分配系统</div>
+                            <div class="feature-item">全程溯源追踪技术</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-industry"></i>
+                        </div>
+                        <h3 class="feature-title">共享烘焙工作室租赁</h3>
+                        <p>提供按小时、半天、全天预约的专业烘焙工作室和设备，实时监控设备状态，构建烘焙师社区与评级体系。</p>
+                        <div style="margin-top: 20px;">
+                            <div class="feature-item">在线预约与管理系统</div>
+                            <div class="feature-item">设备状态实时监控</div>
+                            <div class="feature-item">社区评级与作品展示</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="feature-title">赋能与支持系统</h3>
+                        <p>提供从烘焙基础到高级技术的培训课程，共享烘焙曲线库，一站式供应包装耗材，全面支持烘焙师成长。</p>
+                        <div style="margin-top: 20px;">
+                            <div class="feature-item">专业培训与大师班</div>
+                            <div class="feature-item">烘焙曲线共享库</div>
+                            <div class="feature-item">耗材一站式采购</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 专业联系信息排版 -->
+                <div class="contact-section">
+                    <h3 style="text-align: center; margin-bottom: 40px; font-size: 28px;">联系我们</h3>
+                    <div class="contact-grid">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fab fa-weixin"></i>
+                            </div>
+                            <h4 class="contact-title">微信</h4>
+                            <div class="contact-detail">+8615800222338</div>
+                            <p class="contact-note">添加后请备注"JEBI Works咨询"</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <h4 class="contact-title">WhatsApp</h4>
+                            <div class="contact-detail">+85293188252</div>
+                            <p class="contact-note">国际业务与合作伙伴咨询</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h4 class="contact-title">邮箱</h4>
+                            <div class="contact-detail">erik.wong@jebi.space</div>
+                            <p class="contact-note">商务合作与技术支持</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 设备租赁 -->
+            <section id="rental" class="content-section">
+                <div class="back-button" id="backFromRental">返回首页</div>
+                
+                <h2 class="section-title">烘焙设备与工作室租赁方案</h2>
+                <p style="text-align: center; max-width: 800px; margin: 0 auto 50px; color: var(--text-secondary);">我们提供"即插即用"的专业级烘焙创业解决方案，从入门到大师级，满足不同阶段烘焙师的需求。</p>
+                
+                <div class="rental-plans">
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">创业入门包</h3>
+                            <div class="plan-price">100<span>元/小时</span></div>
+                            <p style="color: var(--text-secondary); margin-top: 10px;">体验会员</p>
+                        </div>
+                        <div class="plan-features">
+                            <div class="feature-item">500g-1kg半自动烘焙机</div>
+                            <div class="feature-item">专业冷却盘</div>
+                            <div class="feature-item">杯测套件与基础工具</div>
+                            <div class="feature-item">30-50㎡工作室空间</div>
+                            <div class="feature-item">基础技术培训</div>
+                        </div>
+                    </div>
+                    
+                    <div class="plan-card" style="border-color: var(--secondary-color);">
+                        <div class="plan-header">
+                            <h3 class="plan-name">专业进阶包</h3>
+                            <div class="plan-price">150<span>元/小时</span></div>
+                            <p style="color: var(--text-secondary); margin-top: 10px;">专业会员 | 优先接单</p>
+                        </div>
+                        <div class="plan-features">
+                            <div class="feature-item">1-3kg全自动/半自动烘焙机</div>
+                            <div class="feature-item">智能冷却台与样品烘焙机</div>
+                            <div class="feature-item">磨豆机与打包机</div>
+                            <div class="feature-item">独立工作室空间</div>
+                            <div class="feature-item">高级技术培训与曲线库</div>
+                        </div>
+                    </div>
+                    
+                    <div class="plan-card">
+                        <div class="plan-header">
+                            <h3 class="plan-name">旗舰大师包</h3>
+                            <div class="plan-price">定制<span>月费/年费</span></div>
+                            <p style="color: var(--text-secondary); margin-top: 10px;">大师会员 | 高比例订单分配</p>
+                        </div>
+                        <div class="plan-features">
+                            <div class="feature-item">多台不同规格烘焙机</div>
+                            <div class="feature-item">全套生豆检测与杯测实验室</div>
+                            <div class="feature-item">自动化包装流水线</div>
+                            <div class="feature-item">私人定制工作室</div>
+                            <div class="feature-item">大师班与品牌联名机会</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 生态系统 -->
+            <section id="ecosystem" class="content-section">
+                <div class="back-button" id="backFromEcosystem">返回首页</div>
+                
+                <h2 class="section-title">平台价值闭环：良性生态系统</h2>
+                <div class="ecosystem">
+                    <p style="max-width: 800px; margin-bottom: 40px; color: var(--text-secondary); font-size: 18px;">JEBI Works构建了一个从水培种植到消费者手中的完整咖啡价值链，每个环节相互赋能，形成可持续发展的生态系统。</p>
+                    
+                    <div class="ecosystem-visual">
+                        <div class="ecosystem-node">
+                            <div class="ecosystem-icon"><i class="fas fa-tint"></i></div>
+                            <h3>雾化水培种植</h3>
+                            <p>控制品种培育与种植，掌握核心原料源头</p>
+                        </div>
+                        <div class="node-connector"></div>
+                        
+                        <div class="ecosystem-node">
+                            <div class="ecosystem-icon"><i class="fas fa-cogs"></i></div>
+                            <h3>标准化初加工</h3>
+                            <p>通过日晒/水洗/蜜处理等工艺，将樱桃加工为优质生豆</p>
+                        </div>
+                        <div class="node-connector"></div>
+                        
+                        <div class="ecosystem-node">
+                            <div class="ecosystem-icon"><i class="fas fa-users"></i></div>
+                            <h3>烘焙师租户</h3>
+                            <p>轻资产创业，使用平台设备与原料，专注于烘焙艺术</p>
+                        </div>
+                        <div class="node-connector"></div>
+                        
+                        <div class="ecosystem-node">
+                            <div class="ecosystem-icon"><i class="fas fa-coffee"></i></div>
+                            <h3>JEBI咖啡馆网络</h3>
+                            <p>全国合作咖啡馆网络，展示与销售平台产品</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 新增的两个连接图标 -->
+                    <div class="ecosystem-connections">
+                        <div class="connection-item">
+                            <div class="connection-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <h3 style="margin: 15px 0 10px;">连接周边雾化水培种植基地</h3>
+                            <p style="color: var(--text-secondary);">平台与全国多个雾化水培咖啡种植基地合作，确保稳定优质的咖啡樱桃供应，实现原料可追溯。每个基地都采用智能监控系统，确保种植环境的最优化。</p>
+                            <div style="margin-top: 20px;">
+                                <div class="feature-item">实时监控种植环境</div>
+                                <div class="feature-item">标准化生产流程</div>
+                                <div class="feature-item">可持续种植实践</div>
+                            </div>
+                        </div>
+                        
+                        <div class="connection-item">
+                            <div class="connection-icon"><i class="fas fa-store"></i></div>
+                            <h3 style="margin: 15px 0 10px;">连接周边JEBI咖啡馆</h3>
+                            <p style="color: var(--text-secondary);">平台与全国多家JEBI品牌咖啡馆合作，为烘焙师提供产品销售渠道，为消费者提供品鉴体验空间。咖啡馆作为平台产品的展示窗口，连接生产者与消费者。</p>
+                            <div style="margin-top: 20px;">
+                                <div class="feature-item">产品展示与销售</div>
+                                <div class="feature-item">消费者品鉴体验</div>
+                                <div class="feature-item">市场反馈收集</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="max-width: 800px; margin-top: 40px; padding: 30px; background-color: white; border-radius: 16px; border: 1px solid var(--border-color);">
+                        <h3 style="margin-bottom: 15px; color: var(--primary-color);">生态系统的核心优势</h3>
+                        <p style="color: var(--text-secondary);">平台掌控上游的水培种植与标准化初加工，确保原料品质与风味一致性；烘焙师租户无需重资产投入即可创业，专注于创造风味；消费者获得完全可追溯、个性化定制的优质咖啡。这种资源共享、价值共创的模式，解构了传统的重资产、长链条咖啡产业。</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>JEBI Works</h3>
+                    <a href="#" class="footer-link" data-subpage="about">关于我们</a>
+                    <a href="#" class="footer-link" data-subpage="philosophy">平台理念</a>
+                    <a href="#" class="footer-link" data-subpage="news">新闻动态</a>
+                    <a href="#" class="footer-link" data-subpage="careers">职业机会</a>
+                </div>
+                <div class="footer-column">
+                    <h3>咖啡加工</h3>
+                    <a href="#" class="footer-link" data-subpage="hydroponics">水培种植技术</a>
+                    <a href="#" class="footer-link" data-subpage="processing-methods">处理法详解</a>
+                    <a href="#" class="footer-link" data-subpage="quality">质量控制</a>
+                    <a href="#" class="footer-link" data-subpage="flavor">风味研发</a>
+                </div>
+                <div class="footer-column">
+                    <h3>设备租赁</h3>
+                    <a href="#" class="footer-link" data-subpage="rental-plans">租赁方案</a>
+                    <a href="#" class="footer-link" data-subpage="equipment">设备目录</a>
+                    <a href="#" class="footer-link" data-subpage="studio">工作室参观</a>
+                    <a href="#" class="footer-link" data-subpage="membership">会员申请</a>
+                </div>
+                <div class="footer-column">
+                    <h3>支持</h3>
+                    <a href="#" class="footer-link" data-subpage="faq">常见问题</a>
+                    <a href="#" class="footer-link" data-subpage="docs">技术文档</a>
+                    <a href="#" class="footer-link" data-subpage="contact">联系我们</a>
+                    <a href="#" class="footer-link" data-subpage="privacy">隐私政策</a>
+                </div>
+            </div>
+            
+            <!-- 专业联系信息排版（页脚版） -->
+            <div class="contact-grid" style="margin-top: 40px; margin-bottom: 40px;">
+                <div class="contact-card" style="background-color: rgba(255,255,255,0.1); color: white;">
+                    <div class="contact-icon" style="color: white;">
+                        <i class="fab fa-weixin"></i>
+                    </div>
+                    <h4 class="contact-title" style="color: white;">微信</h4>
+                    <div class="contact-detail" style="color: white;">+8615800222338</div>
+                </div>
+                
+                <div class="contact-card" style="background-color: rgba(255,255,255,0.1); color: white;">
+                    <div class="contact-icon" style="color: white;">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h4 class="contact-title" style="color: white;">WhatsApp</h4>
+                    <div class="contact-detail" style="color: white;">+85293188252</div>
+                </div>
+                
+                <div class="contact-card" style="background-color: rgba(255,255,255,0.1); color: white;">
+                    <div class="contact-icon" style="color: white;">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h4 class="contact-title" style="color: white;">邮箱</h4>
+                    <div class="contact-detail" style="color: white;">erik.wong@jebi.space</div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 JEBI Works. 版权所有。</p>
+                <p style="margin-top: 10px;">从咖啡樱桃到完美烘焙的完整生态系统 | 重塑咖啡产业价值链</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 子页面内容容器 -->
+    <div id="subpageContainer" style="display: none;">
+        <div class="container">
+            <div id="subpageContent" class="subpage-content"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 主页面导航功能
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const mainContent = document.querySelector('.main-content');
+            const subpageContainer = document.getElementById('subpageContainer');
+            const subpageContent = document.getElementById('subpageContent');
+            
+            // 显示指定内容区域，隐藏其他
+            function showSection(sectionId) {
+                contentSections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+                
+                const activeSection = document.getElementById(sectionId);
+                if (activeSection) {
+                    activeSection.classList.add('active');
+                }
+                
+                // 确保主内容区域可见
+                mainContent.style.display = 'block';
+                subpageContainer.style.display = 'none';
+            }
+            
+            // 导航链接点击事件
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-section');
+                    showSection(sectionId);
+                });
+            });
+            
+            // 返回按钮功能
+            const backButtons = document.querySelectorAll('.back-button');
+            backButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    showSection('home');
+                });
+            });
+            
+            // 首页按钮点击事件
+            document.getElementById('joinBtn').addEventListener('click', function() {
+                showSection('rental');
+            });
+            
+            document.getElementById('learnMoreBtn').addEventListener('click', function() {
+                showSection('ecosystem');
+            });
+            
+            // 页脚链接点击事件 - 显示子页面
+            const footerLinks = document.querySelectorAll('.footer-link');
+            footerLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const subpageId = this.getAttribute('data-subpage');
+                    showSubpage(subpageId);
+                });
+            });
+            
+            // 子页面内容
+            const subpages = {
+                'about': {
+                    title: '关于 JEBI Works',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>公司简介</h3>
+                            <p>JEBI Works 是一家创新的咖啡全产业链整合平台，致力于通过技术驱动和资源共享，重塑咖啡产业价值链。我们整合了从水培种植、咖啡初加工、烘焙设备租赁到订单分发的完整生态系统。</p>
+                            <p>成立于2023年，JEBI Works 已在全国建立多个雾化水培咖啡种植基地，并与超过50家专业咖啡工作室建立合作关系。我们的使命是让优质咖啡的生产更加可持续、透明和高效。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>我们的愿景</h3>
+                            <p>成为全球领先的咖啡产业整合平台，通过技术创新和资源共享，赋能咖啡产业从业者，为消费者提供可追溯、高品质的咖啡体验。</p>
+                        </div>
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h4>成立时间</h4>
+                                <p>2023年</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>合作基地</h4>
+                                <p>全国15+个水培种植基地</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>合作工作室</h4>
+                                <p>50+家专业咖啡工作室</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>平台用户</h4>
+                                <p>1000+名注册烘焙师</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'philosophy': {
+                    title: '平台理念',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>全产业链整合</h3>
+                            <p>JEBI Works 坚信，只有掌控从种植到烘焙的完整产业链，才能确保咖啡品质的稳定性和可追溯性。我们通过整合上游的水培种植和中游的初加工，为下游的烘焙师提供稳定优质的原料供应。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>轻资产创业赋能</h3>
+                            <p>传统的咖啡烘焙创业需要大量的设备投资和场地投入。JEBI Works 通过设备租赁和共享工作室模式，大幅降低创业门槛，让烘焙师可以专注于他们最擅长的领域——创造独特的风味。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>技术驱动效率</h3>
+                            <p>我们利用物联网技术监控设备状态，利用大数据算法智能匹配订单与烘焙师，利用区块链技术实现全程溯源。技术是我们提升产业效率、优化用户体验的核心驱动力。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>社区化运营</h3>
+                            <p>JEBI Works 不仅是一个平台，更是一个社区。我们通过培训、分享、评级等机制，促进烘焙师之间的交流与合作，共同推动咖啡文化的传播和咖啡品质的提升。</p>
+                        </div>
+                    `
+                },
+                'news': {
+                    title: '新闻动态',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>JEBI Works 上海旗舰工作室开幕 (2025年3月)</h3>
+                            <p>JEBI Works 在上海静安区开设了首家旗舰共享烘焙工作室，占地800平方米，配备了最先进的烘焙设备和杯测实验室。该工作室将成为华东地区咖啡烘焙师的创新基地。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>与云南咖啡研究所达成战略合作 (2025年2月)</h3>
+                            <p>JEBI Works 与中国云南咖啡研究所达成战略合作，共同研发适合水培种植的咖啡新品种，推动中国咖啡产业的品种创新和品质提升。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>平台用户突破1000人 (2025年1月)</h3>
+                            <p>JEBI Works 平台注册烘焙师用户突破1000人，累计完成订单超过5000单，平台生态初具规模。我们计划在2025年底前将服务扩展到全国主要城市。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>荣获"咖啡产业创新奖" (2024年12月)</h3>
+                            <p>在2024年中国咖啡产业峰会上，JEBI Works 荣获"年度咖啡产业创新奖"，表彰我们在咖啡产业链整合和模式创新方面的贡献。</p>
+                        </div>
+                    `
+                },
+                'careers': {
+                    title: '职业机会',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>加入我们</h3>
+                            <p>JEBI Works 正在快速发展，我们寻找有激情、有才华、有创新精神的伙伴加入我们，共同重塑咖啡产业的未来。</p>
+                        </div>
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h4>咖啡品质控制专家</h4>
+                                <p>负责咖啡生豆的品质评估和分级，建立和完善品质控制体系。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>平台运营经理</h4>
+                                <p>负责平台的日常运营和用户增长，优化用户体验和平台流程。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>农业技术工程师</h4>
+                                <p>负责雾化水培种植系统的优化和维护，提升种植效率和咖啡品质。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>烘焙培训师</h4>
+                                <p>负责烘焙师的培训和认证，开发和优化培训课程和内容。</p>
+                            </div>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>应聘方式</h3>
+                            <p>请将您的简历和作品集发送至: careers@jebi.space</p>
+                            <p>我们将在收到简历后5个工作日内与您联系。</p>
+                        </div>
+                    `
+                },
+                'hydroponics': {
+                    title: '水培种植技术',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>雾化水培技术介绍</h3>
+                            <p>JEBI Works 采用的雾化水培技术是一种先进的植物栽培方法，通过将营养液雾化后直接喷施到植物根部，为咖啡树提供精确的水分和养分。</p>
+                            <p>与传统土壤种植相比，雾化水培技术具有以下优势：</p>
+                            <div class="feature-item">水资源利用率提高70%</div>
+                            <div class="feature-item">养分吸收效率提升50%</div>
+                            <div class="feature-item">生长周期缩短30%</div>
+                            <div class="feature-item">病虫害减少80%</div>
+                            <div class="feature-item">全年可控制环境生长</div>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>我们的水培系统</h3>
+                            <p>JEBI Works 自主研发的智能水培系统集成了物联网传感器、自动控制系统和大数据分析平台，实现了咖啡种植的智能化和精准化。</p>
+                            <p>系统主要功能包括：</p>
+                            <div class="feature-item">实时监测环境参数（温度、湿度、光照、CO2浓度）</div>
+                            <div class="feature-item">自动调节营养液配比和喷施频率</div>
+                            <div class="feature-item">远程监控和管理种植过程</div>
+                            <div class="feature-item">生长数据分析和优化建议</div>
+                        </div>
+                    `
+                },
+                'processing-methods': {
+                    title: '处理法详解',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>日晒处理法</h3>
+                            <p>日晒处理法是最古老、最传统的咖啡处理方式。我们将成熟的咖啡樱桃直接铺在晾晒场（高架床）上，在阳光下自然干燥2-4周。</p>
+                            <p>在这个过程中，咖啡豆在樱桃内部自然发酵，吸收果肉的糖分和风味物质，形成丰富的果香和甜感。干燥完成后，我们使用去壳机一次性去除干燥的果皮、果肉和羊皮层。</p>
+                            <p><strong>风味特征：</strong> 丰富的果香、高甜感、醇厚度高、酸度柔和。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>水洗处理法</h3>
+                            <p>水洗处理法通过机械去除咖啡樱桃的果皮和大部分果肉，然后将带有残留果胶的咖啡豆放入发酵池中发酵12-48小时。</p>
+                            <p>发酵过程中，果胶被天然酶和微生物分解，然后通过大量清水冲洗干净。最后将咖啡豆晾晒或机器干燥至含水量10-12%。</p>
+                            <p><strong>风味特征：</strong> 口感干净清爽、酸质明亮、风味清晰、甜感柔和。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>蜜处理法</h3>
+                            <p>蜜处理法是日晒和水洗的折中方法。我们像水洗法一样去除果皮和部分果肉，但保留不同比例的果胶层（分为黑蜜、红蜜、黄蜜、白蜜等）。</p>
+                            <p>带着果胶层的咖啡豆直接进行晾晒，在干燥过程中，果胶中的糖分逐渐渗透进咖啡豆，影响其风味发展。干燥时间通常比日晒法短，比水洗法长。</p>
+                            <p><strong>风味特征：</strong> 兼具水洗的干净度和日晒的甜感，风味平衡，酸度和甜感均衡。</p>
+                        </div>
+                    `
+                },
+                'quality': {
+                    title: '质量控制',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>质量控制体系</h3>
+                            <p>JEBI Works建立了严格的质量控制体系，确保从种植到烘焙的每一个环节都符合最高标准。我们的质量控制涵盖以下方面：</p>
+                            <div class="feature-item">种植环境监控与优化</div>
+                            <div class="feature-item">生豆分级与筛选系统</div>
+                            <div class="feature-item">加工过程标准化控制</div>
+                            <div class="feature-item">烘焙品质评估与优化</div>
+                            <div class="feature-item">最终产品品控检验</div>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>品控实验室</h3>
+                            <p>我们在每个生产基地都设有品控实验室，配备专业的杯测师和检测设备，对每一批咖啡豆进行严格评估。</p>
+                            <p>实验室主要检测项目包括：</p>
+                            <div class="feature-item">咖啡豆密度与含水率</div>
+                            <div class="feature-item">瑕疵豆比例与分类</div>
+                            <div class="feature-item">杯测评分与风味描述</div>
+                            <div class="feature-item">化学残留物检测</div>
+                        </div>
+                    `
+                },
+                'flavor': {
+                    title: '风味研发',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>风味研发中心</h3>
+                            <p>我们的风味研发中心致力于探索和创新咖啡风味，通过科学方法和艺术感知的结合，开发独特的咖啡风味图谱。</p>
+                            <p>研发中心的主要工作包括：</p>
+                            <div class="feature-item">新品种风味特性研究</div>
+                            <div class="feature-item">不同处理法风味对比</div>
+                            <div class="feature-item">烘焙曲线优化实验</div>
+                            <div class="feature-item">消费者偏好分析</div>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>风味数据库</h3>
+                            <p>我们建立了全面的咖啡风味数据库，记录了不同产区、品种、处理法和烘焙度的风味特征，为烘焙师提供参考和灵感。</p>
+                            <p>数据库包含以下信息：</p>
+                            <div class="feature-item">200+种咖啡豆风味档案</div>
+                            <div class="feature-item">1000+条烘焙曲线数据</div>
+                            <div class="feature-item">消费者评价与反馈</div>
+                            <div class="feature-item">市场趋势分析报告</div>
+                        </div>
+                    `
+                },
+                'rental-plans': {
+                    title: '租赁方案',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>详细租赁方案</h3>
+                            <p>JEBI Works提供多种租赁方案，满足不同烘焙师的需求，从小时租赁到长期包月，灵活选择。</p>
+                        </div>
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h4>小时租赁</h4>
+                                <p>适合初学者和小批量生产，按小时计费，灵活便捷。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>日租套餐</h4>
+                                <p>适合短期项目或活动，按日计费，包含全天设备使用权。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>月租套餐</h4>
+                                <p>适合稳定生产的烘焙师，月费制，享受折扣和优先权。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>年租套餐</h4>
+                                <p>适合专业烘焙工作室，年费制，享受最大折扣和专属服务。</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'equipment': {
+                    title: '设备目录',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>设备目录</h3>
+                            <p>我们提供各种专业烘焙设备，包括不同容量的烘焙机、冷却盘、磨豆机、打包机等。</p>
+                        </div>
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h4>烘焙机</h4>
+                                <p>500g-15kg容量范围，燃气/电热可选，半自动/全自动控制。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>冷却设备</h4>
+                                <p>专业冷却盘、冷却台，确保烘焙后快速均匀冷却。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>磨豆机</h4>
+                                <p>商业级磨豆机，适用于不同烘焙度和冲煮方式。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>包装设备</h4>
+                                <p>半自动/全自动包装机，充氮保鲜，专业封口。</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'studio': {
+                    title: '工作室参观',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>工作室参观</h3>
+                            <p>欢迎预约参观我们的共享烘焙工作室，亲身体验专业烘焙环境和设备。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>参观流程</h3>
+                            <div class="feature-item">预约参观时间</div>
+                            <div class="feature-item">专业导览介绍</div>
+                            <div class="feature-item">设备操作演示</div>
+                            <div class="feature-item">咖啡品鉴体验</div>
+                            <div class="feature-item">Q&A交流环节</div>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>参观预约</h3>
+                            <p>请通过以下方式预约工作室参观：</p>
+                            <p>电话：+86 400 123 4567</p>
+                            <p>邮箱：visit@jebi.space</p>
+                            <p>微信：扫描二维码预约</p>
+                        </div>
+                    `
+                },
+                'membership': {
+                    title: '会员申请',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>会员申请</h3>
+                            <p>申请成为JEBI Works会员，享受设备租赁、订单接收、培训等全方位服务。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>会员等级</h3>
+                            <div class="feature-item">体验会员：适合初学者，基础设备使用权</div>
+                            <div class="feature-item">专业会员：适合从业者，高级设备使用权和订单优先权</div>
+                            <div class="feature-item">大师会员：适合专业人士，专属工作室和品牌合作机会</div>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>申请流程</h3>
+                            <div class="feature-item">在线提交申请表格</div>
+                            <div class="feature-item">资质审核与面试</div>
+                            <div class="feature-item">基础培训与认证</div>
+                            <div class="feature-item">签订协议与开通权限</div>
+                        </div>
+                    `
+                },
+                'faq': {
+                    title: '常见问题',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>常见问题</h3>
+                            <p>这里列出了用户最常遇到的问题和解答，帮助您更好地使用JEBI Works平台。</p>
+                        </div>
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h4>如何成为平台烘焙师？</h4>
+                                <p>提交申请并通过审核后，完成基础培训即可成为平台烘焙师。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>设备租赁需要押金吗？</h4>
+                                <p>根据会员等级和租赁时长，可能需要支付一定的押金或保证金。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>订单如何分配？</h4>
+                                <p>平台根据烘焙师的专业领域、评分和可用时间智能匹配订单。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>如何保证咖啡品质？</h4>
+                                <p>我们通过严格的质量控制体系和定期杯测评估确保咖啡品质。</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'docs': {
+                    title: '技术文档',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>技术文档</h3>
+                            <p>详细的技术文档和使用指南，帮助您充分利用JEBI Works平台的功能。</p>
+                        </div>
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h4>设备操作手册</h4>
+                                <p>各类烘焙设备的详细操作指南和安全注意事项。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>平台使用指南</h4>
+                                <p>平台各项功能的详细使用说明和操作步骤。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>烘焙技术指南</h4>
+                                <p>不同咖啡豆的烘焙建议和曲线参考。</p>
+                            </div>
+                            <div class="info-card">
+                                <h4>安全规范</h4>
+                                <p>工作室安全操作规范和应急处理流程。</p>
+                            </div>
+                        </div>
+                    `
+                },
+                'contact': {
+                    title: '联系我们',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>联系我们</h3>
+                            <p>如有任何问题或建议，请通过以下方式联系我们，我们将尽快回复您。</p>
+                        </div>
+                        <div class="contact-grid">
+                            <div class="contact-card">
+                                <div class="contact-icon">
+                                    <i class="fab fa-weixin"></i>
+                                </div>
+                                <h4 class="contact-title">微信</h4>
+                                <div class="contact-detail">+8615800222338</div>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <div class="contact-icon">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <h4 class="contact-title">WhatsApp</h4>
+                                <div class="contact-detail">+85293188252</div>
+                            </div>
+                            
+                            <div class="contact-card">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <h4 class="contact-title">邮箱</h4>
+                                <div class="contact-detail">erik.wong@jebi.space</div>
+                            </div>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>办公地址</h3>
+                            <p>上海市静安区南京西路1266号恒隆广场2座1208室</p>
+                            <p>电话：+86 21 1234 5678</p>
+                            <p>工作时间：周一至周五 9:00-18:00</p>
+                        </div>
+                    `
+                },
+                'privacy': {
+                    title: '隐私政策',
+                    content: `
+                        <div class="subpage-section">
+                            <h3>隐私政策</h3>
+                            <p>JEBI Works高度重视用户隐私，制定了严格的隐私政策，保护用户的个人信息和数据安全。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>信息收集与使用</h3>
+                            <p>我们仅收集提供服务所必需的信息，并严格限制信息的使用范围。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>信息安全</h3>
+                            <p>我们采取先进的技术措施保护用户信息的安全，防止未经授权的访问、使用或泄露。</p>
+                        </div>
+                        <div class="subpage-section">
+                            <h3>用户权利</h3>
+                            <p>用户有权访问、更正、删除自己的个人信息，并有权撤回同意。</p>
+                        </div>
+                    `
+                }
+            };
+            
+            // 显示子页面
+            function showSubpage(subpageId) {
+                if (subpages[subpageId]) {
+                    const subpage = subpages[subpageId];
+                    subpageContent.innerHTML = `
+                        <button class="back-button" id="backFromSubpage">返回</button>
+                        <h2 class="subpage-title">${subpage.title}</h2>
+                        ${subpage.content}
+                    `;
+                    
+                    // 隐藏主内容，显示子页面
+                    mainContent.style.display = 'none';
+                    subpageContainer.style.display = 'block';
+                    
+                    // 子页面返回按钮事件
+                    document.getElementById('backFromSubpage').addEventListener('click', function() {
+                        subpageContainer.style.display = 'none';
+                        mainContent.style.display = 'block';
+                    });
+                }
+            }
+            
+            // 默认显示首页
+            showSection('home');
+        });
+    </script>
+</body>
+</html>
